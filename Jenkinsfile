@@ -1,7 +1,7 @@
 pipeline {
     agent { node { label 'Agent' } }
     stages {
-        stage{'Install dependencies'} {
+        stage{'Install depdencies'} {
             steps {
                 sh 'npm install'
             }

@@ -23,7 +23,7 @@ pipeline {
                 sh 'zip -r catalogue.zip ./*  --exclude=.git  --exclude=.zip'
             }
         }
-        stage ('publish artifact')
+        stage ('publish Artifact') {
          steps {
           nexusArtifactUploader(
             nexusVersion: 'nexus3'
@@ -33,7 +33,7 @@ pipeline {
             version: '1.0.0',
             repository: 'catalogue',
             credentialsId: 'ssh-auth',
-            artifact: [ 
+            artifacts: [ 
                 [artifactId: 'catalogue',
                 type: 'zip',
                 classifier: '',

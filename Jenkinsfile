@@ -32,9 +32,9 @@ pipeline {
             groupId: 'com.roboshop',
             version: '1.0.0',
             repository: 'catalogue',
-            credentialsId 'ssh-auth',
-            artifact [ 
-                [artifactId 'catalogue',
+            credentialsId: 'ssh-auth',
+            artifact: [ 
+                [artifactId: 'catalogue',
                 type: 'zip',
                 classifier: '',
                 file: 'catalogue.zip']

@@ -26,24 +26,24 @@ pipeline {
         stage('publish Artifact') {
             steps {
                 nexusArtifactUploader(
-                nexusVersion: 'nexus3',
-                protocol: 'http',
-                nexusUrl: '44.202.179.254:8081/',
-                groupId: 'com.roboshop',
-                version: '1.0.0',
-                repository: 'catalogue',
-                credentialsId: 'ssh-auth',
-                artifacts: [ 
-                    [artifactId: 'catalogue',
-                    classifier: '',
-                    file: 'catalogue.zip',
-                    type: 'zip']
-                    
-            ]
-          )
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '44.202.179.254:8081/',
+                    groupId: 'com.roboshop',
+                    version: '1.0.0',
+                    repository: 'catalogue',
+                    credentialsId: 'ssh-auth',
+                    artifacts: [ 
+                        [artifactId: 'catalogue',
+                        classifier: '',
+                        file: 'catalogue.zip',
+                        type: 'zip']
+                        
+                    ]
+                )
             }
         
-         }
+        }
     }
 }
 

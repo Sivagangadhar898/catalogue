@@ -32,7 +32,7 @@ pipeline {
                 groupId: 'com.roboshop',
                 version: '1.0.0',
                 repository: 'catalogue',
-                credentialsId: 'nexus-auth',
+                credentialsId: 'ssh-auth',
                 artifacts: [ 
                     [artifactId: 'catalogue',
                     classifier: '',

@@ -28,11 +28,11 @@ pipeline {
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: '44.202.179.254:8081/',
+                    nexusUrl: '3.234.227.62:8081/',
                     groupId: 'com.roboshop',
                     version: '1.0.0',
                     repository: 'catalogue',
-                    credentialsId: 'nexus-auth',
+                    credentialsId: 'ssh-authe',
                     artifacts: [ 
                         [artifactId: 'catalogue',
                         classifier: '',

@@ -1,88 +1,61 @@
 pipeline {
-    agent { node { label 'Agent-1' } }
-    environment{
-        //here if you create any variable you will have global access, since it is environment no need of def
-        packageVersion = ''
-    }
+    agent { node { label 'Agent' } }
     stages {
-        stage('Get version'){
-            steps{
-                script{
-                    def packageJson = readJSON(file: 'package.json')
-                    packageVersion = packageJson.version
-                    echo "version: ${packageVersion}"
-                }
-            }
-        }
-    }
         stage('Install depdencies') {
             steps {
                 sh 'npm install'
             }
         }
-        stage('Unit test') {
+        stage('unit test') {
             steps {
                 echo "unit testing is done here"
             }
-        }
-        //sonar-scanner command expect sonar-project.properties should be available
-        // stage('Sonar Scan') {
+        } 
+        // stage('sonar scan') {
         //     steps {
-        //         echo "Sonar scan done"
+        //         sh 'ls -ltr'
+        //         sh 'sonar-scanner'
         //     }
         // }
-        stage('Build') {
+        stage ('build') {
             steps {
                 sh 'ls -ltr'
-                sh 'zip -r catalogue.zip ./* --exclude=.git --exclude=.zip'
+                sh 'zip -r catalogue.zip ./*  --exclude=.git  --exclude=.zip'
             }
         }
-        stage('SAST') {
-            steps {
-                echo "SAST Done"
-                echo "package version: $packageVersion"
-            }
-        }
-        //install pipeline utility steps plugin, if not installed
-        stage('Publish Artifact') {
+        stage('publish Artifact') {
             steps {
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
                     nexusUrl: '3.234.227.62:8081/',
                     groupId: 'com.roboshop',
-                    version: "$packageVersion",
+                    version: '1.0.0',
                     repository: 'catalogue',
-                    credentialsId: 'nexus-auth',
-                    artifacts: [
+                    credentialsId: '3.234.227.62',
+                    artifacts: [ 
                         [artifactId: 'catalogue',
                         classifier: '',
                         file: 'catalogue.zip',
                         type: 'zip']
+                        
                     ]
                 )
-            }
+           }
         }
-
-        //here I need to configure downstram job. I have to pass package version for deployment
-        // This job will wait until downstrem job is over
-    //     stage('Deploy') {
-    //         steps {
-    //             script{
-    //                 echo "Deployment"
-    //                 def params = [
-    //                     string(name: 'version', value: "$packageVersion")
-    //                 ]
-    //                 build job: "../catalogue-deploy", wait: true, parameters: params
-    //             }
-    //         }
-    //     }
-    // }
-
+    }  
+       
     post{
         always{
             echo 'cleaning up workspace'
-            //deleteDir()
+            deleteDir()
         }
+                
+
     }
 }
+
+
+
+
+    

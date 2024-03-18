@@ -30,7 +30,7 @@ pipeline {
                     protocol: 'http',
                     nexusUrl: '3.234.227.62:8081/',
                     groupId: 'com.roboshop',
-                    version: '1.0.1',
+                    version: '1.0.0',
                     repository: 'catalogue',
                     credentialsId: 'nexus-ssh',
                     artifacts: [ 
